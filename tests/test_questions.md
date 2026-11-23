@@ -28,7 +28,7 @@
 - Источник: `instrukciya_po_obnovleniyu_personalnyh_dannyh.docx`
 - ID документа: `DOC002`
 - Подразделение: HR
-- Уровень доступа: department
+- Уровень доступа: all
 
 ### Q002. Запрос справки
 
@@ -88,7 +88,7 @@
 - Источник: `poryadok_perevoda_mezhdu_podrazdeleniyami.docx`
 - ID документа: `DOC009`
 - Подразделение: HR
-- Уровень доступа: department
+- Уровень доступа: all
 
 ### Q008. Увольнение по инициативе сотрудника
 
@@ -132,7 +132,7 @@
 - Источник: `instrukciya_po_oformleniyu_avansovogo_otcheta.docx`
 - ID документа: `DOC028`
 - Подразделение: Finance
-- Уровень доступа: department
+- Уровень доступа: all
 
 ### Q012. Проверка счетов-фактур
 
