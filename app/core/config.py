@@ -27,3 +27,29 @@ APP_ENV = os.getenv(
     "APP_ENV",
     "development"
 )
+
+# Настройки подключения к SQL Server
+SQL_SERVER = os.getenv(
+    "SQL_SERVER",
+    "DESKTOP-8ARU1LD"
+)
+
+SQL_DATABASE = os.getenv(
+    "SQL_DATABASE",
+    "CorporateKnowledgeSearch"
+)
+
+SQL_DRIVER = os.getenv(
+    "SQL_DRIVER",
+    "ODBC Driver 18 for SQL Server"
+)
+
+SQL_TRUSTED_CONNECTION = os.getenv(
+    "SQL_TRUSTED_CONNECTION",
+    "yes"
+)
+
+SQL_TRUST_SERVER_CERTIFICATE = os.getenv(
+    "SQL_TRUST_SERVER_CERTIFICATE",
+    "yes"
+)

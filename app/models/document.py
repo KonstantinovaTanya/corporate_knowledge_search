@@ -9,5 +9,5 @@ class Document(BaseModel):
     title: str
     department: str
     access_level: AccessLevel
-    author_id: str
+    author_id: str | None
     content: str
