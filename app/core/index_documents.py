@@ -52,3 +52,47 @@ def index_documents():
 
 if __name__ == "__main__":
     index_documents()
+
+
+def index_single_document(document_id: int):
+    es = get_elasticsearch()
+    connection = get_connection()
+
+    try:
+        row = connection.cursor().execute(
+            """
+            SELECT
+                d.id,
+                d.title,
+                d.content,
+                dep.name AS department,
+                al.name AS access_level,
+                d.author_id
+            FROM Documents d
+            JOIN Departments dep ON d.department_id = dep.id
+            JOIN AccessLevels al ON d.access_level_id = al.id
+            WHERE d.id = ?
+            """,
+            document_id
+        ).fetchone()
+
+        if not row:
+            raise ValueError(
+                f"Документ с ID {document_id} не найден"
+            )
+
+        es.index(
+            index=INDEX_NAME,
+            id=row.id,
+            document={
+                "document_id": row.id,
+                "title": row.title,
+                "content": row.content,
+                "department": row.department,
+                "access_level": row.access_level,
+                "author_id": row.author_id
+            }
+        )
+
+    finally:
+        connection.close()
