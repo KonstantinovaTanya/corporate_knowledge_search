@@ -53,3 +53,11 @@ SQL_TRUST_SERVER_CERTIFICATE = os.getenv(
     "SQL_TRUST_SERVER_CERTIFICATE",
     "yes"
 )
+
+ELASTICSEARCH_URL = os.getenv(
+    "ELASTICSEARCH_URL",
+    "https://localhost:9200"
+)
+
+ELASTICSEARCH_USER = os.getenv("ELASTICSEARCH_USER", "elastic")
+ELASTICSEARCH_PASSWORD = os.getenv("ELASTICSEARCH_PASSWORD", "")
