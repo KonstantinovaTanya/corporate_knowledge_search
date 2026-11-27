@@ -2,11 +2,18 @@
 from pathlib import Path
 from fastapi import APIRouter, UploadFile, File, HTTPException, Form
 from app.services.document_upload_service import extract_text
-from app.services.document_storage_service import save_document
-from app.core.index_documents import index_single_document
+
 from app.services.document_query_service import (
     get_all_documents,
     get_document_by_id
+)
+
+from app.services.document_storage_service import (
+    save_document
+)
+
+from app.core.index_documents import (
+    index_single_document
 )
 MAX_FILE_SIZE = 20 * 1024 * 1024  # 20 МБ
 
@@ -140,7 +147,7 @@ def get_documents():
 
 
 @router.get("/{document_id}")
-def get_document(document_id: int):
+def get_document(document_id: str):
     try:
         document = get_document_by_id(document_id)
 
@@ -160,3 +167,6 @@ def get_document(document_id: int):
             status_code=500,
             detail="Не удалось получить документ"
         )
+
+
+

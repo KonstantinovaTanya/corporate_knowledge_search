@@ -54,7 +54,7 @@ if __name__ == "__main__":
     index_documents()
 
 
-def index_single_document(document_id: int):
+def index_single_document(document_id: str):
     es = get_elasticsearch()
     connection = get_connection()
 
@@ -96,3 +96,6 @@ def index_single_document(document_id: int):
 
     finally:
         connection.close()
+
+
+

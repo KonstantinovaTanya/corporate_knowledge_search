@@ -44,7 +44,7 @@ def get_all_documents():
         connection.close()
 
 
-def get_document_by_id(document_id: int):
+def get_document_by_id(document_id: str):
     connection = get_connection()
 
     try:

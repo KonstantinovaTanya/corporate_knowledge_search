@@ -1,4 +1,3 @@
-
 from app.core.database import get_connection
 
 
@@ -14,6 +13,18 @@ def save_document(
 
     try:
         cursor = connection.cursor()
+
+        # Получаем следующий номер документа
+        next_number = cursor.execute("""
+            SELECT ISNULL(
+                MAX(TRY_CONVERT(INT, SUBSTRING(id, 4, 17))),
+                0
+            ) + 1 AS next_number
+            FROM Documents WITH (UPDLOCK, HOLDLOCK)
+            WHERE id LIKE 'DOC%'
+        """).fetchone().next_number
+
+        document_id = f"DOC{next_number:03d}"
 
         # Получаем ID подразделения
         department_row = cursor.execute(
@@ -46,9 +57,10 @@ def save_document(
             )
 
         # Сохраняем документ
-        document_id = cursor.execute(
+        cursor.execute(
             """
             INSERT INTO Documents (
+                id,
                 title,
                 filename,
                 department_id,
@@ -56,16 +68,16 @@ def save_document(
                 author_id,
                 content
             )
-            OUTPUT INSERTED.id
-            VALUES (?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
             """,
+            document_id,
             title,
             filename,
             department_row.id,
             access_row.id,
             author_id,
             content
-        ).fetchone().id
+        )
 
         connection.commit()
 
