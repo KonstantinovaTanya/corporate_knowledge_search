@@ -1,9 +1,34 @@
 
 from app.core.database import get_connection
+from app.core.config import SQL_DATABASE
+
+
+def create_database():
+    """Создаёт базу данных, если она ещё не существует."""
+
+    connection = get_connection("master")
+    cursor = connection.cursor()
+
+    database_name = SQL_DATABASE.replace("]", "]]")
+    database_literal = SQL_DATABASE.replace("'", "''")
+
+    cursor.execute(f"""
+        IF DB_ID(N'{database_literal}') IS NULL
+        BEGIN
+            CREATE DATABASE [{database_name}]
+        END
+    """)
+
+    connection.commit()
+    cursor.close()
+    connection.close()
 
 
 def init_database():
-    """Создаёт таблицы базы данных."""
+    """Создаёт таблицы и заполняет справочники."""
+
+    # Создание базы данных при необходимости
+    create_database()
 
     connection = get_connection()
     cursor = connection.cursor()
@@ -93,20 +118,26 @@ def init_database():
 
     # Заполнение справочника ролей
     cursor.execute("""
-        INSERT INTO Roles (name)
-        VALUES
-            ('employee'),
-            ('department_head'),
-            ('admin')
+        IF NOT EXISTS (SELECT 1 FROM Roles)
+        BEGIN
+            INSERT INTO Roles (name)
+            VALUES
+                ('employee'),
+                ('department_head'),
+                ('admin')
+        END
     """)
 
     # Заполнение уровней доступа
     cursor.execute("""
-        INSERT INTO AccessLevels (name)
-        VALUES
-            ('all'),
-            ('department'),
-            ('admin')
+        IF NOT EXISTS (SELECT 1 FROM AccessLevels)
+        BEGIN
+            INSERT INTO AccessLevels (name)
+            VALUES
+                ('all'),
+                ('department'),
+                ('admin')
+        END
     """)
 
     connection.commit()
@@ -116,4 +147,4 @@ def init_database():
 
 if __name__ == "__main__":
     init_database()
-    print("Таблицы базы данных успешно созданы.")
+    print("База данных и таблицы успешно созданы.")

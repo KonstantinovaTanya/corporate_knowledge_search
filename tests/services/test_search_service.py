@@ -5,7 +5,7 @@ from app.models.user import User
 from app.models.enums import UserRole
 from app.services.search_service import search_documents
 
-
+# Проверка поиска с ограничением доступа
 class TestSearchService(unittest.TestCase):
 
     def setUp(self):

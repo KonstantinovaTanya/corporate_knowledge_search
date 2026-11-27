@@ -4,7 +4,7 @@ from pydantic import ValidationError
 from app.models.user import User
 from app.models.document import Document
 
-
+# Проверка корректности данных
 class TestModels(unittest.TestCase):
 
     def test_create_user(self):

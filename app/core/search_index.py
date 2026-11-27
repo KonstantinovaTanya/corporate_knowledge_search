@@ -44,3 +44,6 @@ def create_search_index():
         print(f"Индекс {INDEX_NAME} успешно создан.")
     else:
         print(f"Индекс {INDEX_NAME} уже существует.")
+
+if __name__ == "__main__":
+    create_search_index()

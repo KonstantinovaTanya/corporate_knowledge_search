@@ -1,5 +1,5 @@
-import pyodbc
 
+import pyodbc
 from app.core.config import (
     SQL_SERVER,
     SQL_DATABASE,
@@ -9,13 +9,13 @@ from app.core.config import (
 )
 
 
-def get_connection():
-    """Создаёт подключение к SQL Server."""
+def get_connection(database=None):
+    database = database or SQL_DATABASE
 
     connection_string = (
         f"DRIVER={{{SQL_DRIVER}}};"
         f"SERVER={SQL_SERVER};"
-        f"DATABASE={SQL_DATABASE};"
+        f"DATABASE={database};"
         f"Trusted_Connection={SQL_TRUSTED_CONNECTION};"
         f"TrustServerCertificate={SQL_TRUST_SERVER_CERTIFICATE};"
     )

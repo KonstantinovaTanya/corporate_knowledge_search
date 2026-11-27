@@ -12,7 +12,7 @@ from app.services.access_control import (
     can_create_document
 )
 
-
+# Проверка логики прав
 class TestAccessControl(unittest.TestCase):
 
     def setUp(self):
